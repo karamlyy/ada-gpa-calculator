@@ -55,6 +55,15 @@
     /* Ensure minimum width */
 }
 
+.delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--error-color);
+    font-size: 20px;
+    margin-left: 10px;
+}
+
 .button-container {
     display: flex;
     justify-content: center;
@@ -129,7 +138,6 @@ h2 {
 
 .theme-toggle {
     background: none;
-    color: black;
     border: none;
     cursor: pointer;
     font-size: 20px;
@@ -141,4 +149,19 @@ header {
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
+}
+
+.info-section {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.formula {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+
+.formula-title {
+    color: var(--text-color);
 }

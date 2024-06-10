@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Calculator.css';
-import { FaPlus, FaCalculator, FaSun, FaMoon } from 'react-icons/fa';
+import { FaPlus, FaCalculator, FaSun, FaMoon, FaTrash } from 'react-icons/fa';
 
 const gradePoints = {
   'A': 4.00,
@@ -18,7 +18,11 @@ const gradePoints = {
 };
 
 function Calculator() {
-  const [classes, setClasses] = useState([{ name: '', grade: '', credit: '' }]);
+  const [classes, setClasses] = useState([
+    { name: '', grade: '', credit: '' },
+    { name: '', grade: '', credit: '' },
+    { name: '', grade: '', credit: '' },
+  ]);
   const [gpa, setGpa] = useState(null);
   const [error, setError] = useState('');
   const [darkTheme, setDarkTheme] = useState(false);
@@ -31,6 +35,12 @@ function Calculator() {
 
   const handleAddClass = () => {
     setClasses([...classes, { name: '', grade: '', credit: '' }]);
+  };
+
+  const handleDeleteClass = (index) => {
+    const values = [...classes];
+    values.splice(index, 1);
+    setClasses(values);
   };
 
   const handleCalculateGpa = () => {
@@ -77,10 +87,28 @@ function Calculator() {
     <div className={`App ${darkTheme ? 'dark' : ''}`}>
       <header className="App-header">
         <h1>GPA Calculator</h1>
-        <button className="theme-toggle" onClick={toggleTheme}>
+        <button
+          className="theme-toggle"
+          onClick={toggleTheme}
+          style={{
+            color: darkTheme ? 'yellow' : 'black',
+          }}
+        >
           {darkTheme ? <FaSun /> : <FaMoon />}
         </button>
       </header>
+      <div className="info-section">
+        <h2 className='formula-title'>How GPA is Calculated</h2>
+        <p>
+          The GPA (Grade Point Average) is calculated using the formula:
+        </p>
+        <p className="formula">
+          GPA = (Sum of (Grade Points × Credits)) / (Sum of Credits)
+        </p>
+        <p>
+          Each class is assigned a grade point based on the grade received, and this is multiplied by the number of credits for the class. The sum of these values for all classes is divided by the total number of credits to determine the GPA.
+        </p>
+      </div>
       {classes.map((cls, index) => (
         <div key={index} className="class-inputs">
           <input
@@ -109,6 +137,9 @@ function Calculator() {
             value={cls.credit}
             onChange={(event) => handleInputChange(index, event)}
           />
+          <button className="delete-button" onClick={() => handleDeleteClass(index)}>
+            <FaTrash />
+          </button>
         </div>
       ))}
       <div className="button-container">
